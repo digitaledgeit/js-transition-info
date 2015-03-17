@@ -1,0 +1,9 @@
+{
+  "name": "transition-info",
+  "scripts": ["index.js"],
+  "development": {
+    "dependencies": {
+      "component/assert": "*"
+    }
+  }
+}
