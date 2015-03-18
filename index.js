@@ -6,6 +6,7 @@
  * @returns {number}
  */
 function indexOfProperty(property, propertyList) {
+  propertyList = propertyList || '';
   var properties = propertyList.split(',').map(function(value) { return value.trim(); });
   for (var index=0; index<properties.length; ++index) {
     if (properties[index] === property || properties[index] === 'all' ) {
@@ -22,6 +23,7 @@ function indexOfProperty(property, propertyList) {
  * @returns {string|null}
  */
 function valueAtIndex(index, valueList) {
+  valueList = valueList || '';
   var values = valueList.split(',').map(function(value) { return value.trim(); });
 
   if (index<0 || index>=values.length) {
