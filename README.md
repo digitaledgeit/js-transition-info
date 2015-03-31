@@ -13,7 +13,7 @@ HTML:
 CSS:
 
     .target {
-      transition: opacity 1s;
+      transition: opacity 1s, max-height 2s;
     }
 
 JS:
@@ -21,9 +21,11 @@ JS:
     var transition = require('transition-info');
 
     var element   = document.querySelector('.target');
-    var duration  = transition(element).duration('opacity');
+    var duration  = transition(element).duration();
+    var opacity   = transition(element).duration('opacity');
 
-    console.log(duration+'ms'); //prints `1000ms`
+    console.log(duration+'ms'); //prints `2000ms`
+    console.log(opacity+'ms');  //prints `1000ms`
 
 ## API
 
@@ -32,3 +34,5 @@ JS:
 #### .duration(property : string) : number
 
 Get the number of milliseconds a transition should take to complete - the default duration is 0
+
+ - property - optional

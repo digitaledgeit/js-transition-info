@@ -1,4 +1,30 @@
 
+function timeToMilliSeconds(value) {
+
+	var matches = value.match(/([0-9.]+)(s|ms)/);
+	if (!matches) {
+		return 0;
+	}
+
+	var duration  = parseFloat(matches[1]);
+	var units     = matches[2];
+
+	switch (units) {
+		case 's':
+			duration = duration*1000;
+			break;
+
+		case 'ms':
+			break;
+
+		default:
+			duration = 0;
+
+	}
+
+	return duration;
+}
+
 /**
  * Find the index of the property in the property list
  * @param   {string} property
@@ -56,37 +82,37 @@ function Transition(style) {
 
 /**
  * Get the number of milliseconds a transition should take to complete - the default duration is 0
- * @param   {string} property  The transition property
+ * @param   {string} [property]  A transition property
  * @returns {number}
  */
 Transition.prototype.duration = function(property) {
-  var value = valueAtIndex(indexOfProperty(property, this._style.transitionProperty), this._style.transitionDuration);
 
-  if (value === null) {
-    return 0;
-  }
+	if (property) {
 
-  var matches = value.match(/([0-9.]+)(s|ms)/);
-  if (!matches) {
-    return 0;
-  }
+		var value = valueAtIndex(indexOfProperty(property, this._style.transitionProperty), this._style.transitionDuration);
 
-  var duration = parseFloat(matches[1]);
+		if (value === null) {
+			return 0;
+		}
 
-  switch (matches[2]) {
-    case 's':
-      duration = duration*1000;
-      break;
+		return timeToMilliSeconds(value);
 
-    case 'ms':
-      break;
+	} else {
 
-    default:
-      duration = 0;
+		var values = this._style.transitionDuration
+			.split(' ')
+			.filter(function(value) {
+				return value.trim().length;
+			})
+			.map(function(value) {
+				return timeToMilliSeconds(value);
+			})
+		;
 
-  }
+		return Math.max.apply(Math, values);
 
-  return duration;
+	}
+
 };
 
 module.exports = Transition;
