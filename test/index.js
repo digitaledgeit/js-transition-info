@@ -44,7 +44,96 @@ describe('Transition', function() {
 
   });
 
-  describe('.duration()', function() {
+	describe('.properties()', function() {
+
+		it('should return an array when transitions are not supported', function() {
+
+			var style = {};
+
+			assert(Array.isArray(transition(style).properties()));
+
+		});
+
+		it('should return an array when transitions are supported', function() {
+
+			var style = {
+				transitionProperty: 'all'
+			};
+
+			assert(Array.isArray(transition(style).properties()));
+
+		});
+
+		it('should return an array containing height and opacity', function() {
+
+			var style = {
+				transitionProperty: 'height, opacity'
+			};
+
+			var properties = transition(style).properties();
+
+			assert.notEqual(properties.indexOf('height'), -1);
+			assert.notEqual(properties.indexOf('opacity'), -1);
+
+		});
+
+	});
+
+	describe('.delay()', function() {
+
+		describe('with a property', function () {
+
+			it('should return 750 when there is a delay applied on height', function() {
+
+				var style = {
+					transitionProperty: 'height, opacity',
+					transitionDuration: '1s, 1.5s',
+					transitionDelay: '0.5s, 0.75s'
+				};
+
+				var properties = transition(style).properties();
+
+				assert.equal(transition(style).delay('height'), 500);
+
+			});
+
+			it('should return 750 when there is a delay applied on opacity', function() {
+
+				var style = {
+					transitionProperty: 'height, opacity',
+					transitionDuration: '1s, 1.5s',
+					transitionDelay: '0.5s, 0.75s'
+				};
+
+				var properties = transition(style).properties();
+
+				assert.equal(transition(style).delay('opacity'), 750);
+
+			});
+
+		});
+
+		describe('without a property', function () {
+
+			it('should return 750 when there is no property specified', function() {
+
+				var style = {
+					transitionProperty: 'height, opacity',
+					transitionDuration: '1s, 1.5s',
+					transitionDelay: '0.5s, 0.75s'
+				};
+
+				var properties = transition(style).properties();
+
+				assert.equal(transition(style).delay(), 750);
+
+			});
+
+		});
+
+	});
+
+	describe('.duration()', function() {
 
 	  describe('with a property', function() {
 
@@ -196,5 +285,54 @@ describe('Transition', function() {
 	  });
 
   });
+
+	describe('.total()', function() {
+
+		it('should return 750', function () {
+
+			var style = {
+				transitionProperty: 'height, opacity',
+				transitionDelay: '0.5s, 0.75s'
+			};
+
+			assert.equal(transition(style).total(), 750);
+
+		});
+
+		it('should return 1000', function () {
+
+			var style = {
+				transitionProperty: 'height, opacity',
+				transitionDuration: '1s, 0.5s'
+			};
+
+			assert.equal(transition(style).total(), 1000);
+
+		});
+
+		it('should return 1500', function () {
+
+			var style = {
+				transitionProperty: 'height, opacity',
+				transitionDuration: '1s, 0.5s',
+				transitionDelay: '0.5s, 0.75s'
+			};
+
+			assert.equal(transition(style).total(), 1500);
+		});
+
+		it('should return 1250', function () {
+
+			var style = {
+				transitionProperty: 'height, opacity',
+				transitionDuration: '1s, 0.5s',
+				transitionDelay: '0.5s, 0.75s'
+			};
+
+			assert.equal(transition(style).total('opacity'), 1250);
+		});
+
+
+	});
 
 });

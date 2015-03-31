@@ -31,8 +31,25 @@ JS:
 
 ### Methods
 
+#### .delay(property : string) : number
+
+Get the number of milliseconds a transition should be delayed - the default delay is 0
+
+ - property - optional
+ 
 #### .duration(property : string) : number
 
 Get the number of milliseconds a transition should take to complete - the default duration is 0
 
  - property - optional
+
+#### .total(property : string) : number
+
+Get the total number of milliseconds a transition should take to complete including any delay - the default delay+duration is 0
+
+- property - optional
+
+ 
+## ToDo
+
+- 
