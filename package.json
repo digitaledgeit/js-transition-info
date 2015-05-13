@@ -1,0 +1,20 @@
+{
+  "name": "@digitaledgeit/transition-info",
+  "description": "Read transition values from a CSSStyleDeclaration.",
+  "keywords": [
+    "browser",
+    "transition",
+    "info",
+    "duration",
+    "delay"
+  ],
+  "version": "0.4.0",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:digitaledgeit/js-transition-info.git"
+  },
+  "bugs": {
+    "url": "https://github.com/digitaledgeit/js-transition-info/issues"
+  },
+  "license": "MIT"
+}

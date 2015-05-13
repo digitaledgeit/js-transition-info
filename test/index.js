@@ -1,11 +1,5 @@
 var assert = require('assert');
-
-var transition;
-try {
-  transition = require('..');
-} catch(e) {
-  transition = require('transition-info');
-}
+var transition = require('..');
 
 describe('Transition', function() {
 
